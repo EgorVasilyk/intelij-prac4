@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Список студентов</title>
+</head>
+<body>
+<h1>Журнал</h1>
+<form action="/jurnals/add" method="post">
+  <input type="text" name="Name" placeholder="Имя" required>
+  <input type="text" name="LastName" placeholder="Фамилия" required>
+  <input type="text" name="FirstName" placeholder="Отчество" required>
+  <input type="text" name="MiddleName" placeholder="Курс" required>
+  <button type="submit">Добавить студента</button>
+</form>
+
+<form action="/jurnals/filter1" method="post">
+  <button type="submit">фильтр курс 1</button>
+</form>
+
+<form action="/jurnals/filter2" method="post">
+  <button type="submit">фильтр курс 2</button>
+</form>
+
+<form action="/jurnals/filter3" method="post">
+  <button type="submit">фильтр курс 3</button>
+</form>
+
+<form action="/jurnals/id" method="post">
+  <input type="text" name="middleName" placeholder="Поиск по курсу" required>
+  <button type="submit">поиск</button>
+</form>
+
+<h2>Список:</h2>
+<ul>
+    <th:block th:each="jurnal : ${jurnals}">
+        <li>
+          <th:block th:if="${jurnal.getisDeleted() == false}">
+          <span th:text="${jurnal.name} + ' ' + ${jurnal.lastName} + ' ' + ${jurnal.firstName} + ' ' + ${jurnal.middleName}"></span>
+          <form action="/jurnals/update/{id}" method="post" style="display:inline;">
+            <input type="hidden" name="id" th:value="${jurnal.id}"/>
+            <input type="text" name="name" placeholder="Имя" required/>
+            <input type="text" name="lastName" placeholder="Фамилия" required/>
+            <input type="text" name="firstName" placeholder="Отчество" required/>
+            <input type="text" name="middleName" placeholder="Курс" required/>
+            <button type="submit">Обновить</button>
+          </form>
+          <form action="/jurnals/delete/{id}" method="post" style="display:inline;">
+            <input type="hidden" name="id" th:value="${jurnal.id}"/>
+            <button type="submit">Удалить</button>
+          </form>
+          <form action="/jurnals/bool" method="post" style="display:inline;">
+            <input type="hidden" name="id" th:value="${jurnal.id}"/>
+            <input type="hidden" name="name" th:value="${jurnal.name}"/>
+            <input type="hidden" name="lastName" th:value="${jurnal.lastName}"/>
+            <input type="hidden" name="firstName" th:value="${jurnal.firstName}"/>
+            <input type="hidden" name="middleName" th:value="${jurnal.middleName}"/>
+
+            <button type="submit">Удалить логически</button>
+          </form>
+          </th:block>
+        </li>
+    </th:block>
+</ul>
+
+<form action="/jurnals/clear" method="post">
+  <button type="submit">Очистить список</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+        <html lang="ru">
+        <head>
+        <meta charset="UTF-8">
+        <title>Список студентов</title>
+</head>
+<body>
+<h1>Журнал</h1>
+<form action="/workers/add" method="post">
+    <input type="text" name="Name" placeholder="Имя" required>
+    <input type="text" name="LastName" placeholder="Фамилия" required>
+    <input type="text" name="FirstName" placeholder="Отчество" required>
+    <input type="text" name="Job" placeholder="Должность" required>
+    <button type="submit">Добавить сотрудника</button>
+</form>
+
+<h2>Список:</h2>
+<ul>
+    <th:block th:each="worker : ${workers}">
+        <li>
+            <span th:text="${worker.name} + ' ' + ${worker.lastName} + ' ' + ${worker.firstName} + ' ' + ${worker.Job}"></span>
+            <form action="/workers/update/{id}" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${worker.id}"/>
+                <input type="text" name="name" placeholder="Имя" required/>
+                <input type="text" name="lastName" placeholder="Фамилия" required/>
+                <input type="text" name="firstName" placeholder="Отчество" required/>
+                <input type="text" name="Job" placeholder="Должность" required/>
+                <button type="submit">Обновить</button>
+            </form>
+            <form action="/workers/delete/{id}" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${worker.id}"/>
+                <button type="submit">Удалить</button>
+            </form>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>

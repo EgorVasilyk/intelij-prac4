@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <title>AUTH</title>
+</head>
+<body>
+<div th:text="${message}">
+</div>
+<form th:action="@{/registration}" method="post">
+  <div><label> Логин : <input required type="text" name="username"/> </label></div>
+  <div><label> Пароль : <input required type="password" name="password"/> </label></div>
+  <div><input type="submit" value="Регистрация"/></div>
+</form>
+</body>
+</html>
